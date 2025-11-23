@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia Interativo: Internet e E-mail (CPU-PE 2025)</title>
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        /* Variáveis de Cores e Estilos */
+        :root {
+            --color-primary: #4f46e5; /* Indigo-600 */
+            --color-primary-dark: #4338ca; /* Indigo-700 */
+            --color-primary-light: #e0e7ff; /* Indigo-100 */
+            --color-bg-light: #eff6ff; /* Blue-50 */
+            --color-text-dark: #1f2937; /* Gray-800 */
+            
+            --color-pink-light: #fce7f3; /* Pink-100 */
+            --color-pink-dark: #ec4899; /* Pink-600 */
+            
+            --color-teal-light: #ccfbf1; /* Teal-100 */
+            --color-teal-dark: #0d9488; /* Teal-600 */
+            
+            --color-warning-light: #fffdfa; /* Amber-50 */
+            --color-warning-dark: #b45309; /* Amber-800 */
+            
+            --border-radius-base: 1rem; /* rounded-xl */
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition-speed: 0.3s;
+        }
+
+        /* 1. Global Styles and Layout */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-bg-light);
+            color: var(--color-text-dark);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 80rem; /* max-w-5xl (approx) */
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
+        @media (min-width: 768px) {
+            .container {
+                padding: 2rem;
+            }
+        }
+        
+        /* 2. Header and Typography */
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .title-main {
+            font-size: 2.25rem; /* text-3xl md:text-4xl */
+            font-weight: 800; /* font-extrabold */
+            color: var(--color-primary-dark);
+        }
+        .subtitle {
+            font-size: 1.125rem; /* text-lg */
+            color: #4f46e5; /* Indigo-600 */
+            margin-top: 0.5rem;
+        }
+        
+        .section-title {
+            font-size: 1.5rem; /* text-2xl */
+            font-weight: 600;
+            color: var(--color-primary-dark);
+            margin-bottom: 1rem;
+        }
+        
+        /* 3. Navigation Buttons (Main) */
+        nav.main-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem 1rem; /* gap-2 md:gap-4 */
+            margin-bottom: 2rem;
+        }
+        
+        .nav-btn {
+            padding: 0.5rem 1.25rem; /* px-5 py-2 */
+            font-weight: 700; /* font-bold */
+            font-size: 0.875rem; /* text-sm */
+            border-radius: var(--border-radius-base);
+            transition: all var(--transition-speed);
+            border: 2px solid #a5b4fc; /* Indigo-300 */
+            background-color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06); /* shadow-md */
+            color: var(--color-primary-dark);
+            cursor: pointer;
+        }
+        
+        /* Estado Ativo */
+        .nav-btn.active {
+            background-color: var(--color-primary);
+            color: white;
+            box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.4), 0 10px 10px -5px rgba(79, 70, 229, 0.1); /* shadow-xl + custom shadow */
+            border-color: var(--color-primary);
+        }
+        
+        /* Efeito Hover (Estado Inativo) */
+        .nav-btn:not(.active):hover {
+            background-color: #c7d2fe; /* Indigo-200 */
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.2), 0 4px 6px -4px rgba(79, 70, 229, 0.1); /* hover:shadow-lg + custom shadow */
+        }
+        
+        /* 4. Content Sections */
+        .content-section {
+            padding: 1.5rem; /* p-6 */
+            background-color: white;
+            border-radius: 1.5rem; /* rounded-2xl */
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* shadow-2xl */
+            border: 1px solid #eef2ff; /* Indigo-100 */
+        }
+        
+        @media (min-width: 768px) {
+            .content-section {
+                padding: 2rem; /* md:p-8 */
+            }
+        }
+        
+        /* Cards de Comparação (HTTP/HTTPS) */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem; /* gap-6 */
+        }
+        @media (min-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .card-http {
+            background-color: var(--color-pink-light);
+            border: 1px solid var(--color-pink-dark);
+            border-radius: var(--border-radius-base);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-lg);
+        }
+        .card-http h3 { color: #9d174d; /* Pink-800 */ font-size: 1.25rem; margin-bottom: 0.75rem; font-weight: 700; }
+        .card-http ul { list-style-type: none; padding: 0; margin: 0; }
+        .card-http ul li { margin-bottom: 0.5rem; color: #831843; /* Pink-900 */ }
+        
+        .card-https {
+            background-color: var(--color-teal-light);
+            border: 1px solid var(--color-teal-dark);
+            border-radius: var(--border-radius-base);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-lg);
+        }
+        .card-https h3 { color: #065f46; /* Teal-800 */ font-size: 1.25rem; margin-bottom: 0.75rem; font-weight: 700; }
+        .card-https ul { list-style-type: none; padding: 0; margin: 0; }
+        .card-https ul li { margin-bottom: 0.5rem; color: #0f766e; /* Teal-900 */ }
+
+        /* Dica de Concurso */
+        .dica-concurso {
+            background-color: var(--color-warning-light);
+            border: 1px solid #fcd34d; /* Amber-300 */
+            border-radius: var(--border-radius-base);
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        .dica-concurso-title {
+            font-weight: 700;
+            color: var(--color-warning-dark);
+            display: flex;
+            align-items: center;
+        }
+        .dica-concurso-title svg {
+            width: 1.25rem;
+            height: 1.25rem;
+            margin-right: 0.5rem;
+        }
+        .dica-concurso p {
+            color: #b45309; /* Amber-700 */
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        /* Fluxo Handshake */
+        .handshake-flow {
+            background-color: #eef2ff; /* Indigo-50 */
+            padding: 1.5rem;
+            border-radius: var(--border-radius-base);
+            border: 1px solid #c7d2fe; /* Indigo-200 */
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06); /* shadow-inner */
+        }
+        .handshake-items {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        @media (min-width: 768px) {
+            .handshake-items {
+                flex-direction: row;
+                align-items: center;
+                gap: 1rem;
+            }
+        }
+        .handshake-box {
+            flex: 1;
+            background-color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            border: 1px solid #e0e7ff; /* Indigo-100 */
+            text-align: center;
+        }
+        .handshake-arrow {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--color-primary);
+            margin: 0.5rem 0;
+            text-align: center;
+        }
+        @media (min-width: 768px) {
+             .handshake-arrow {
+                transform: none;
+             }
+             .handshake-items > div:nth-child(2) {
+                margin: 0;
+             }
+             .handshake-items:nth-child(3) > div:nth-child(2) {
+                transform: scaleX(-1);
+             }
+             .handshake-flow > div:nth-child(2) {
+                text-align: center;
+             }
+        }
+        .handshake-result {
+            margin-top: 1.5rem;
+            text-align: center;
+            background-color: #99f6e4; /* Teal-200 */
+            padding: 1rem;
+            border-radius: var(--border-radius-base);
+            border: 1px solid #14b8a6; /* Teal-500 */
+            box-shadow: var(--shadow-lg);
+        }
+        .handshake-result h4 { color: #064e3b; /* Teal-900 */ font-weight: 700; }
+        .handshake-result p { color: #0f766e; /* Teal-900 */ font-size: 0.875rem; }
+
+        /* Lista de Segurança */
+        .security-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            list-style-position: inside;
+        }
+        .security-list li {
+            display: flex;
+            align-items: flex-start;
+            background-color: #eef2ff; /* Indigo-50 */
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border: 1px solid #c7d2fe; /* Indigo-200 */
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+            margin-bottom: 1rem;
+        }
+        .security-list li .icon {
+            color: #0d9488; /* Teal-600 */
+            margin-right: 0.75rem;
+            margin-top: 0.25rem;
+            font-weight: 700;
+        }
+        .security-list li h4 {
+            font-weight: 600;
+            color: #3730a3; /* Indigo-800 */
+        }
+        .security-list li p {
+            color: #4b5563; /* Gray-600 */
+            font-size: 0.875rem;
+        }
+
+        /* 5. Ameaças Section */
+        .sub-nav {
+            display: flex;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #e5e7eb; /* Gray-200 */
+            margin-bottom: 1.5rem;
+            gap: 0.5rem;
+        }
+        .sub-nav-btn {
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            font-size: 0.875rem;
+            border-radius: 0.5rem;
+            transition: all var(--transition-speed);
+            color: #6b7280; /* Gray-500 */
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        .sub-nav-btn.active {
+            background-color: #e0e7ff; /* Indigo-100 */
+            color: #3730a3; /* Indigo-800 */
+            font-weight: 700;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+        }
+        .sub-nav-btn:not(.active):hover {
+            background-color: #f5f3ff; /* Indigo-50 */
+        }
+        .sub-content-section h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        .sub-content-section h3.pink { color: #db2777; /* Pink-700 */ }
+        .sub-content-section h3.teal { color: #0d9488; /* Teal-700 */ }
+
+        /* Exemplo de Phishing */
+        .phishing-example {
+            background-color: #eef2ff; /* Indigo-50 */
+            border: 1px solid #f9a8d4; /* Pink-300 */
+            border-radius: var(--border-radius-base);
+            box-shadow: var(--shadow-lg);
+            padding: 1rem;
+            max-width: 42rem; /* max-w-2xl */
+            margin: 0 auto 1.5rem auto;
+        }
+        @media (min-width: 768px) {
+            .phishing-example {
+                padding: 1.5rem;
+            }
+        }
+        .phishing-header {
+            border-bottom: 1px solid #f9a8d4; /* Pink-200 */
+            padding-bottom: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+        .phishing-from { font-size: 0.875rem; color: #4b5563; }
+        .phishing-from .sender-email { color: #ec4899; background-color: #fce7f3; padding: 2px 4px; border-radius: 4px; font-family: monospace; }
+        .phishing-subject { font-size: 0.875rem; color: #6b7280; margin-top: 0.25rem; }
+        .phishing-subject .urgent-text { color: #ec4899; font-weight: 700; }
+        
+        .phishing-body { color: var(--color-text-dark); }
+        .phishing-body .highlight { font-weight: 600; color: #ec4899; }
+        .phishing-body .button-link {
+            display: inline-block;
+            background-color: var(--color-primary);
+            color: white;
+            font-weight: 700;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.4);
+            transition: background-color var(--transition-speed);
+            text-decoration: none;
+            margin-bottom: 1rem;
+            text-align: center;
+            cursor: pointer;
+        }
+        .phishing-body .button-link:hover {
+            background-color: var(--color-primary-dark);
+        }
+
+        .red-flags h5 { font-weight: 700; color: #db2777; margin-bottom: 0.5rem; }
+        .red-flags ul { list-style-type: disc; padding-left: 1.25rem; margin: 0; font-size: 0.875rem; color: #9d174d; }
+        .red-flags ul li { margin-bottom: 0.25rem; }
+        .red-flags ul li .bold { font-weight: 600; }
+
+        /* 6. Chart Styles */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        /* 7. Quiz Styles */
+        .quiz-header {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background-color: #e0e7ff; /* Indigo-100 */
+            border-radius: var(--border-radius-base);
+            border: 1px solid #a5b4fc; /* Indigo-300 */
+        }
+        .quiz-header p {
+            font-size: 0.875rem;
+            color: #4f46e5; /* Indigo-600 */
+        }
+        .quiz-header h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #3730a3; /* Indigo-800 */
+        }
+
+        .quiz-option {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            border: 1px solid #c7d2fe; /* Indigo-200 */
+            border-radius: 0.5rem;
+            transition: all 0.15s;
+            color: #3730a3; /* Indigo-800 */
+            font-weight: 500;
+            background-color: white;
+            cursor: pointer;
+        }
+        .quiz-option:hover {
+            background-color: #f5f3ff; /* Indigo-50 */
+        }
+        .quiz-option.correct {
+            background-color: var(--color-teal-light);
+            border-color: #2dd4bf; /* Teal-400 */
+            color: #047857; /* Teal-900 */
+        }
+        .quiz-option.incorrect {
+            background-color: var(--color-pink-light);
+            border-color: #f472b6; /* Pink-400 */
+            color: #9d174d; /* Pink-900 */
+        }
+
+        .quiz-feedback {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        .feedback-correct {
+            background-color: #d1fae5; /* Green-100 equivalent for context */
+            color: #065f46;
+            border: 1px solid #34d399;
+        }
+        .feedback-incorrect {
+            background-color: #fecaca; /* Red-100 equivalent for context */
+            color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+
+        .next-btn {
+            margin-top: 1rem;
+            background-color: var(--color-primary);
+            color: white;
+            font-weight: 500;
+            padding: 0.5rem 1.25rem;
+            border-radius: var(--border-radius-base);
+            transition: background-color var(--transition-speed);
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .next-btn:hover {
+            background-color: var(--color-primary-dark);
+        }
+
+        .quiz-intro-btn, .quiz-restart-btn {
+            padding: 0.75rem 1.5rem;
+            font-weight: 700;
+            border-radius: var(--border-radius-base);
+            transition: all var(--transition-speed);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            width: 100%;
+        }
+        @media (min-width: 768px) {
+            .quiz-intro-btn {
+                width: auto;
+            }
+        }
+        
+        .quiz-intro-btn {
+            background-color: var(--color-primary);
+            color: white;
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.4);
+        }
+        .quiz-intro-btn:hover {
+            background-color: var(--color-primary-dark);
+        }
+        
+        .quiz-restart-btn {
+            background-color: #6b7280; /* Gray-500 */
+            color: white;
+        }
+        .quiz-restart-btn:hover {
+            background-color: #4b5563; /* Gray-600 */
+        }
+        
+        /* Utility Classes (Replacing Tailwind's 'hidden') */
+        .hidden { display: none !important; }
+
+        /* Icon Helper for Security List */
+        .security-list-icon {
+            color: #10b981; /* Green-500 */
+            margin-right: 0.75rem;
+            margin-top: 0.25rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="body-style">
+
+    <div class="container">
+        
+        <header>
+            <h1 class="title-main">Guia de Estudo: Internet e E-mail</h1>
+            <p class="subtitle">Roteiro Interativo | Estudo Guiado</p>
+        </header>
+
+        <nav class="main-nav">
+            <button class="nav-btn active" data-target="inicio">Início</button>
+            <button class="nav-btn" data-target="http-https">HTTP vs. HTTPS</button>
+            <button class="nav-btn" data-target="seguranca">Segurança em Navegação</button>
+            <button class="nav-btn" data-target="ameacas">Ameaças (Phishing, Spam)</button>
+            <button class="nav-btn" data-target="simulado">Simulado</button>
+        </nav>
+
+        <main id="content-container">
+            
+            <section id="inicio" class="content-section">
+                <h2 class="section-title">Bem-vindo(a)!</h2>
+                <p style="margin-bottom: 1rem;">Este guia interativo foi criado para focar nos tópicos de "Internet e E-mail". O objetivo é ir além da leitura passiva, permitindo que você interaja com os conceitos e teste seu conhecimento.</p>
+                <p style="margin-bottom: 1rem;">A finalidade não é apenas entender esses conceitos, mas aplicá-los para garantir a segurança e a eficiência das comunicações no ambiente digital. A distinção entre HTTP e HTTPS, as práticas de navegação segura e a identificação de ameaças como phishing são fundamentais no dia a dia.</p>
+                <div style="background-color: var(--color-primary-light); border: 1px solid #a5b4fc; border-radius: var(--border-radius-base); padding: 1rem; box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);">
+                    <h3 style="font-weight: 700; color: #3730a3; margin-bottom: 0.5rem;">Como usar este guia:</h3>
+                    <ul style="list-style: disc; list-style-position: inside; color: #1e3a8a; margin: 0; padding-left: 1rem;">
+                        <li>Use os botões de navegação acima para alternar entre os módulos.</li>
+                        <li>Preste atenção especial nos quadros "Dicas".</li>
+                        <li>No módulo "Ameaças", explore as abas internas.</li>
+                        <li>Ao final, teste seu conhecimento no "Simulado".</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="http-https" class="content-section hidden">
+                <h2 class="section-title">Conexões HTTP e HTTPS</h2>
+                <p style="margin-bottom: 1.5rem;">O HTTP (Hypertext Transfer Protocol) é o protocolo fundamental da web, definindo como mensagens são formatadas e transmitidas. No entanto, o HTTP padrão é inseguro. O HTTPS é sua extensão segura.</p>
+
+                <div class="comparison-grid">
+                    <div class="card-http">
+                        <h3>HTTP (Protocolo de Transferência de Hipertexto)</h3>
+                        <ul style="padding-left: 1.25rem; list-style-type: disc;">
+                            <li><span style="font-weight: 600;">Porta Padrão:</span> 80</li>
+                            <li><span style="font-weight: 600;">Criptografia:</span> Nenhuma. Os dados (logins, senhas, formulários) trafegam em texto puro.</li>
+                            <li><span style="font-weight: 600;">Risco:</span> Vulnerável a ataques de interceptação (<span style="font-style: italic;">Man-in-the-Middle</span>), onde um invasor pode ler e modificar os dados.</li>
+                            <li><span style="font-weight: 600;">Navegador:</span> Marcado como "Não Seguro".</li>
+                        </ul>
+                    </div>
+                    <div class="card-https">
+                        <h3>HTTPS (Protocolo de Transferência de Hipertexto Seguro)</h3>
+                        <ul style="padding-left: 1.25rem; list-style-type: disc;">
+                            <li><span style="font-weight: 600;">Porta Padrão:</span> 443</li>
+                            <li><span style="font-weight: 600;">Criptografia:</span> Sim. Utiliza o protocolo SSL/TLS (Transport Layer Security) para criptografar a comunicação.</li>
+                            <li><span style="font-weight: 600;">Risco:</span> Baixo. Garante os 3 pilares da segurança:</li>
+                            <li style="margin-left: 1rem;"><span style="font-weight: 700;">1. Confidencialidade:</span> Impede que invasores leiam os dados.</li>
+                            <li style="margin-left: 1rem;"><span style="font-weight: 700;">2. Integridade:</span> Impede que os dados sejam alterados no caminho.</li>
+                            <li style="margin-left: 1rem;"><span style="font-weight: 700;">3. Autenticidade:</span> Prova que o usuário está se comunicando com o servidor correto (através do Certificado Digital).</li>
+                            <li><span style="font-weight: 600;">Navegador:</span> Mostra um ícone de cadeado.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="dica-concurso">
+                    <h4 class="dica-concurso-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" style="width: 1.5rem; height: 1.5rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m12.728 0l.707-.707M6.343 17.657l-.707.707m12.728 0l.707.707M12 21v-1m-1.636-6.364l.707-.707m-5.657 5.657l.707.707m5.657 5.657l.707-.707" /></svg>
+                        Dicas:
+                    </h4>
+                    <p style="color: var(--color-warning-dark); margin-top: 0.5rem;">A principal diferença que as bancas cobram é a camada de segurança. HTTPS não é um protocolo novo; é o protocolo HTTP "dentro" de um túnel seguro SSL/TLS. O TLS (sucessor do SSL) é o responsável pela criptografia, e o Certificado Digital (emitido por uma AC - Autoridade Certificadora) é o responsável por garantir a autenticidade do servidor.</p>
+                </div>
+
+                <h3 style="font-size: 1.25rem; font-weight: 600; color: var(--color-primary-dark); margin-top: 2rem; margin-bottom: 1rem;">Fluxo Simplificado do "Handshake" TLS (HTTPS)</h3>
+                <div class="handshake-flow">
+                    <div class="handshake-items">
+                        <div class="handshake-box">
+                            <div style="font-weight: 700; font-size: 1.125rem; color: var(--color-primary-dark);">1. Cliente</div>
+                            <p style="font-size: 0.875rem;">"Olá, Servidor! Quero uma conexão segura. (ClientHello)"</p>
+                        </div>
+                        <div class="handshake-arrow">→</div>
+                        <div class="handshake-box">
+                            <div style="font-weight: 700; font-size: 1.125rem; color: var(--color-primary-dark);">2. Servidor</div>
+                            <p style="font-size: 0.875rem;">"Olá, Cliente! Aqui está meu Certificado Digital e minha chave pública. (ServerHello)"</p>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin: 1rem 0;">
+                        <div class="handshake-arrow" style="transform: rotate(90deg); display: inline-block;">↓</div>
+                    </div>
+                    <div class="handshake-items" style="flex-direction: row-reverse;">
+                        <div class="handshake-box">
+                            <div style="font-weight: 700; font-size: 1.125rem; color: var(--color-primary-dark);">4. Cliente</div>
+                            <p style="font-size: 0.875rem;">"Chave recebida! A partir de agora, nossa comunicação está criptografada."</p>
+                        </div>
+                        <div class="handshake-arrow" style="transform: scaleX(-1);">→</div>
+                        <div class="handshake-box">
+                            <div style="font-weight: 700; font-size: 1.125rem; color: var(--color-primary-dark);">3. Cliente</div>
+                            <p style="font-size: 0.875rem;">"Certificado OK! Vou criar uma chave secreta (simétrica), criptografá-la com sua chave pública e te enviar."</p>
+                        </div>
+                    </div>
+                    <div class="handshake-result">
+                        <h4 style="font-weight: 700; color: #064e3b;">5. Conexão Segura Estabelecida</h4>
+                        <p style="font-size: 0.875rem; color: #0f766e;">Toda a comunicação (requisições HTTP) agora passa por este túnel criptografado.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="seguranca" class="content-section hidden">
+                <h2 class="section-title">Segurança em Navegação</h2>
+                <p style="margin-bottom: 1.5rem;">A navegação segura é um conjunto de práticas para proteger sua identidade, seus dados e seu equipamento contra ameaças online.</p>
+                <ul class="security-list">
+                    <li>
+                        <span class="security-list-icon">✔️</span>
+                        <div>
+                            <h4>Mantenha Tudo Atualizado</h4>
+                            <p>Navegador, extensões (plugins) e sistema operacional. Atualizações corrigem vulnerabilidades (falhas de segurança) que podem ser exploradas por atacantes.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="security-list-icon">✔️</span>
+                        <div>
+                            <h4>Autenticação de Múltiplos Fatores (MFA)</h4>
+                            <p>Sempre que possível, ative o 2FA (Two-Factor Authentication) ou MFA. Isso adiciona uma camada extra de segurança (ex: um código do celular) além da sua senha.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="security-list-icon">✔️</span>
+                        <div>
+                            <h4>Desconfie de Redes Wi-Fi Públicas</h4>
+                            <p>Redes abertas (em aeroportos, cafés) são arriscadas. Evite acessar dados sensíveis (como bancos). Se precisar, use uma <span style="font-weight: 600;">VPN (Virtual Private Network)</span> para criptografar seu tráfego e protegê-lo de interceptação na rede local.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="security-list-icon">✔️</span>
+                        <div>
+                            <h4>Verifique a URL e o Cadeado</h4>
+                            <p>Sempre verifique se o site usa HTTPS (o cadeado 🔒). Além disso, olhe atentamente a URL para evitar sites falsos (ex: `banco-itau.com` em vez de `itau.com.br`).</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="security-list-icon">✔️</span>
+                        <div>
+                            <h4>Gerencie Cookies e Permissões</h4>
+                            <p>Cookies são pequenos arquivos que sites usam para rastreá-lo. Limpe-os regularmente e seja seletivo ao aceitá-los. Não dê permissão de câmera, microfone ou localização a sites, a menos que seja estritamente necessário.</p>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="dica-concurso">
+                    <h4 class="dica-concurso-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" style="width: 1.5rem; height: 1.5rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m12.728 0l.707-.707M6.343 17.657l-.707.707m12.728 0l.707.707M12 21v-1m-1.636-6.364l.707-.707m-5.657 5.657l.707.707m5.657 5.657l.707-.707" /></svg>
+                        Dicas: Navegação Privada/Anônima
+                    </h4>
+                    <p style="color: var(--color-warning-dark); margin-top: 0.5rem;">O que o modo de navegação anônima (ou privada) <span style="font-weight: 700;">FAZ</span>: Impede que o navegador salve seu histórico de navegação, cookies e dados de formulário <span style="font-weight: 700;">no seu dispositivo local</span>.</p>
+                    <p style="color: var(--color-warning-dark); margin-top: 0.25rem;">O que ela <span style="font-weight: 700;">NÃO FAZ</span>: Ela <span style="font-weight: 700;">NÃO</span> te torna anônimo na internet. Seu provedor de internet (ISP), seu empregador (se estiver na rede corporativa) e os sites que você visita ainda podem ver seu endereço IP e sua atividade. Ela <span style="font-weight: 700;">NÃO</span> protege contra phishing ou malware.</p>
+                </div>
+            </section>
+
+            <section id="ameacas" class="content-section hidden">
+                <h2 class="section-title">Ameaças: Phishing, Spam e Links Maliciosos</h2>
+                <p style="margin-bottom: 1.5rem;">Entender as ameaças mais comuns em e-mails e na navegação é crucial. A maioria dos ataques bem-sucedidos começa com engenharia social, explorando a confiança ou o descuido do usuário.</p>
+                
+                <nav class="sub-nav">
+                    <button class="sub-nav-btn active" data-target="phishing">Phishing</button>
+                    <button class="sub-nav-btn" data-target="spam">Spam</button>
+                    <button class="sub-nav-btn" data-target="links-maliciosos">Links Maliciosos</button>
+                </nav>
+
+                <div id="ameacas-content-container">
+                    <div id="phishing" class="sub-content-section">
+                        <h3 class="pink">Phishing (Pescaria Digital)</h3>
+                        <p style="margin-bottom: 1rem;">É uma técnica de <span style="font-weight: 600;">engenharia social</span> que usa e-mails, SMS (Smishing) ou mensagens instantâneas para enganar o usuário e induzi-lo a revelar informações confidenciais (senhas, números de cartão de crédito, CPF).</p>
+                        <p style="margin-bottom: 1rem;">O atacante se passa por uma entidade confiável (banco, governo, rede social) para "pescar" suas credenciais.</p>
+
+                        <h4 style="font-weight: 600; color: var(--color-primary-dark); margin-bottom: 0.5rem;">Exemplo Interativo: Anatomia de um E-mail de Phishing</h4>
+                        <div class="phishing-example">
+                            <div class="phishing-header">
+                                <p class="phishing-from"><span style="font-weight: 700; color: var(--color-text-dark);">De:</span> Banco Total S.A. &lt;<span class="sender-email">seguranca.cliente@banco-total.info</span>&gt;</p>
+                                <p class="phishing-subject"><span style="font-weight: 600; color: var(--color-text-dark);">Assunto:</span> <span class="urgent-text">[URGENTE] Sua conta foi bloqueada por atividade suspeita!</span></p>
+                            </div>
+                            <div class="phishing-body">
+                                <p style="margin-bottom: 1rem;">Prezado Cliente,</p>
+                                <p style="margin-bottom: 1rem;">Detectamos uma <span class="highlight">atividade incomum</span> em sua conta. Por motivos de segurança, sua conta foi <span style="font-weight: 700; color: var(--color-pink-dark);">temporariamente bloqueada</span>.</p>
+                                <p style="margin-bottom: 1rem;">Para restaurar seu acesso e evitar o bloqueio permanente, é <span class="highlight">essencial</span> que você confirme seus dados imediatamente.</p>
+                                <p style="margin-bottom: 1.5rem;">Acesse o link abaixo para verificar sua identidade:</p>
+                                <p style="text-align: center; margin-bottom: 1rem;">
+                                    <a href="#" class="button-link" onclick="return false;" title="Link Falso! O destino real seria: http://login-banco-total.xyz/validar.php">
+                                        Clique Aqui para Validar sua Conta
+                                    </a>
+                                </p>
+                                <p style="font-size: 0.875rem; color: #4b5563;">Agradecemos a <span style="font-style: italic; color: var(--color-pink-dark);">compreenção</span>.</p>
+                                <p style="font-size: 0.875rem; color: #4b5563; margin-top: 0.5rem;">Atenciosamente,<br>Equipe de Segurança do Banco Total</p>
+                            </div>
+                        </div>
+
+                        <div class="red-flags" style="max-width: 42rem; margin: 0 auto;">
+                            <h5>Bandeiras Vermelhas (Red Flags) no Exemplo:</h5>
+                            <ul>
+                                <li><span class="bold">Remetente:</span> O domínio `@banco-total.info` é suspeito. Bancos usam domínios oficiais (ex: `.com.br`).</li>
+                                <li><span class="bold">Senso de Urgência:</span> O uso de "URGENTE", "conta bloqueada" e "imediatamente" é tática para causar pânico e fazer você agir sem pensar.</li>
+                                <li><span class="bold">Link Suspeito:</span> Ao passar o mouse sobre o botão (sem clicar!), o navegador mostraria o link real, que não é o site oficial do banco.</li>
+                                <li><span class="bold">Erros de Gramática:</span> "Compreenção" (com "ç") é um erro sutil, comum em e-mails falsos.</li>
+                                <li><span class="bold">Solicitação de Dados:</span> Bancos e instituições sérias <span style="font-weight: 700;">nunca</span> pedem senhas ou dados confidenciais por e-mail.</li>
+                            </ul>
+                        </div>
+
+                        <div class="dica-concurso">
+                            <h4 class="dica-concurso-title">
+                                <svg xmlns="http://www.w3.org/2000/svg" style="width: 1.5rem; height: 1.5rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m12.728 0l.707-.707M6.343 17.657l-.707.707m12.728 0l.707.707M12 21v-1m-1.636-6.364l.707-.707m-5.657 5.657l.707.707m5.657 5.657l.707-.707" /></svg>
+                                Dicas: Tipos de Phishing
+                            </h4>
+                            <p style="color: var(--color-warning-dark); margin-top: 0.5rem;"><span style="font-weight: 700;">Phishing:</span> O ataque em massa, genérico (como o exemplo acima).</p>
+                            <p style="color: var(--color-warning-dark); margin-top: 0.25rem;"><span style="font-weight: 700;">Spear Phishing:</span> Um ataque direcionado a um indivíduo ou grupo específico (ex: "Departamento Financeiro"). É mais personalizado e convincente, usando nomes e contextos reais da vítima.</p>
+                            <p style="color: var(--color-warning-dark); margin-top: 0.25rem;"><span style="font-weight: 700;">Whaling:</span> Um spear phishing focado em alvos de alto nível (CEOs, CFOs, políticos). O objetivo é roubar dados estratégicos ou realizar grandes fraudes financeiras.</p>
+                        </div>
+                    </div>
+
+                    <div id="spam" class="sub-content-section hidden">
+                        <h3 class="teal">Spam</h3>
+                        <p style="margin-bottom: 1rem;">É o envio de mensagens em massa, tipicamente comerciais, <span style="font-weight: 600;">não solicitadas</span> pelo destinatário. Embora muitos spams sejam apenas publicidade irritante, eles são um vetor comum para golpes e malware.</p>
+                        
+                        <h4 style="font-weight: 600; color: var(--color-primary-dark); margin-bottom: 0.5rem;">Características e Riscos:</h4>
+                        <ul style="list-style: disc; list-style-position: inside; padding-left: 1.25rem; margin-bottom: 1rem;">
+                            <li><span style="font-weight: 600;">Alto Volume:</span> Enviado para milhões de endereços de uma só vez.</li>
+                            <li><span style="font-weight: 600;">Irrelevância:</span> O conteúdo não tem relação com o destinatário.</li>
+                            <li><span style="font-weight: 600;">Risco de Malware:</span> Muitos spams contêm anexos maliciosos (faturas falsas, boletos falsos) ou links para sites comprometidos.</li>
+                            <li><span style="font-weight: 600;">Risco de Phishing:</span> Spam é o veículo mais comum para campanhas de phishing.</li>
+                        </ul>
+                        
+                        <h4 style="font-weight: 600; color: var(--color-primary-dark); margin-bottom: 0.5rem;">Como se Proteger:</h4>
+                        <ul style="list-style: disc; list-style-position: inside; padding-left: 1.25rem;">
+                            <li><span style="font-weight: 600;">Use Filtros Anti-Spam:</span> A maioria dos provedores de e-mail modernos (Gmail, Outlook) faz isso automaticamente, mas em um ambiente corporativo, soluções de "gateway de e-mail" são essenciais.</li>
+                            <li><span style="font-weight: 600;">Nunca Responda ou Clique em "Cancelar Inscrição":</span> Responder a um spam (mesmo para pedir para sair da lista) apenas <span style="font-weight: 700;">confirma</span> que seu e-mail é válido e ativo, atraindo mais spam.</li>
+                            <li><span style="font-weight: 600;">Proteja seu E-mail:</span> Evite publicar seu e-mail principal em sites públicos.</li>
+                        </ul>
+                    </div>
+
+                    <div id="links-maliciosos" class="sub-content-section hidden">
+                        <h3 class="pink">Links Maliciosos</h3>
+                        <p style="margin-bottom: 1rem;">Um link malicioso (ou URL maliciosa) é um link criado para causar danos ao usuário, seja roubando informações ou comprometendo seu dispositivo.</p>
+                        
+                        <h4 style="font-weight: 600; color: var(--color-primary-dark); margin-bottom: 0.5rem;">O que eles podem fazer:</h4>
+                        <ul style="list-style: disc; list-style-position: inside; padding-left: 1.25rem; margin-bottom: 1rem;">
+                            <li><span style="font-weight: 600;">Distribuir Malware:</span> O link pode iniciar o download automático de um software malicioso (vírus, spyware, cavalo de troia) ou, mais comumente, <span style="font-weight: 700;">Ransomware</span> (que sequestra seus arquivos e pede resgate).</li>
+                            <li><span style="font-weight: 600;">Levar a Sites de Phishing:</span> Como visto anteriormente, o link parece legítimo, mas leva a um site falso para roubar credenciais.</li>
+                            <li><span style="font-weight: 600;">Executar Scripts Maliciosos (XSS):</span> O link pode explorar falhas no seu navegador ou em um site legítimo para roubar seus cookies de sessão.</li>
+                        </ul>
+                        
+                        <h4 style="font-weight: 600; color: var(--color-primary-dark); margin-bottom: 0.5rem;">Como Identificar e Evitar:</h4>
+                        <ul style="list-style: disc; list-style-position: inside; padding-left: 1.25rem;">
+                            <li><span style="font-weight: 600;">Passe o Mouse (Hover):</span> <span style="font-weight: 700;">Sempre</span> passe o mouse sobre um link (sem clicar!) antes de acessá-lo. O seu navegador (no canto inferior) ou cliente de e-mail mostrará o destino real da URL.</li>
+                            <li><span style="font-weight: 600;">Encurtadores de URL:</span> Tenha cuidado extra com links de encurtadores (como `bit.ly`, `t.co`). Embora muitos sejam legítimos, são usados por atacantes para esconder o destino final. Use serviços de "preview" de links se desconfiar.</li>
+                            <li><span style="font-weight: 600;">Desconfie do Contexto:</span> Recebeu um link estranho de um amigo no WhatsApp? A conta dele pode ter sido invadida. Recebeu um "prêmio" ou uma "herança" por e-mail? É golpe.</li>
+                            <li><span style="font-weight: 600;">Use Soluções de Segurança:</span> Antivírus modernos e extensões de navegador (como uBlock Origin) ajudam a bloquear sites maliciosos conhecidos.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 style="font-size: 1.25rem; font-weight: 600; color: var(--color-primary-dark); margin-top: 2rem; margin-bottom: 1rem;">Visualização: Volume Relativo de Ameaças (Exemplo)</h3>
+                <p style="text-align: center; font-size: 0.875rem; color: #4b5563; margin-bottom: 0.5rem;">Em um ambiente corporativo, o volume de spam é massivamente maior, mas os ataques de phishing, embora menos numerosos, são muito mais perigosos.</p>
+                <div class="chart-container">
+                    <canvas id="threatsChart"></canvas>
+                </div>
+
+            </section>
+            
+            <section id="simulado" class="content-section hidden">
+                <h2 class="section-title">Simulado Rápido</h2>
+                <p style="margin-bottom: 1.5rem;">Teste seu conhecimento sobre os tópicos. Selecione a resposta que você acha correta.</p>
+
+                <div id="quiz-intro">
+                    <button id="start-quiz-btn" class="quiz-intro-btn">
+                        Iniciar Simulado
+                    </button>
+                </div>
+
+                <div id="quiz-container" class="hidden">
+                    <div class="quiz-header">
+                        <p id="quiz-progress">Pergunta 1 de 5</p>
+                        <h3 id="quiz-question">Carregando...</h3>
+                    </div>
+                    <div id="quiz-options" style="margin-top: 0.5rem;">
+                        <!-- Opções serão injetadas pelo JS -->
+                    </div>
+                    <div id="quiz-feedback" class="quiz-feedback hidden"></div>
+                    <button id="next-quiz-btn" class="next-btn hidden">
+                        Próxima Pergunta
+                    </button>
+                </div>
+
+                <div id="quiz-results" class="hidden" style="text-align: center;">
+                    <h3 style="font-size: 1.25rem; font-weight: 600; color: var(--color-primary-dark); margin-bottom: 0.75rem;">Simulado Concluído!</h3>
+                    <p style="font-size: 1.125rem; margin-bottom: 1rem;" id="quiz-score">Você acertou 0 de 5.</p>
+                    <p style="margin-bottom: 1.5rem;" id="quiz-result-message">Continue estudando!</p>
+                    <button id="restart-quiz-btn" class="quiz-restart-btn">
+                        Tentar Novamente
+                    </button>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            const navButtons = document.querySelectorAll('.nav-btn');
+            const contentSections = document.querySelectorAll('.content-section');
+            
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.getAttribute('data-target');
+                    
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    contentSections.forEach(section => {
+                        if (section.id === targetId) {
+                            section.classList.remove('hidden');
+                        } else {
+                            section.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            const ameacasNavButtons = document.querySelectorAll('.sub-nav-btn');
+            const ameacasContentSections = document.querySelectorAll('.sub-content-section');
+
+            ameacasNavButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.getAttribute('data-target');
+                    
+                    ameacasNavButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    ameacasContentSections.forEach(section => {
+                        if (section.id === targetId) {
+                            section.classList.remove('hidden');
+                        } else {
+                            section.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            let threatsChartInstance = null;
+            function createThreatsChart() {
+                if (threatsChartInstance) {
+                    threatsChartInstance.destroy();
+                }
+                const ctx = document.getElementById('threatsChart').getContext('2d');
+                threatsChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Spam (em massa)', 'Phishing (direcionado)', 'Links c/ Malware'],
+                        datasets: [{
+                            label: 'Volume Relativo de Ameaças',
+                            data: [85, 10, 5],
+                            backgroundColor: [
+                                'rgba(156, 163, 175, 0.6)', /* Gray for Spam */
+                                'rgba(236, 72, 153, 0.7)', /* Pink for Phishing */
+                                'rgba(52, 211, 153, 0.7)'  /* Teal for Malware */
+                            ],
+                            borderColor: [
+                                'rgba(156, 163, 175, 1)',
+                                'rgba(236, 72, 153, 1)',
+                                'rgba(52, 211, 153, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%'
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.dataset.label + ': ' + context.parsed.y + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            document.querySelector('button[data-target="ameacas"]').addEventListener('click', () => {
+                setTimeout(createThreatsChart, 0); 
+            });
+
+            const quizQuestions = [
+                {
+                    question: "Qual é a principal diferença entre HTTP e HTTPS?",
+                    options: [
+                        "HTTPS é mais rápido que HTTP.",
+                        "HTTPS usa a porta 443 e criptografa os dados com SSL/TLS, enquanto HTTP usa a porta 80 e envia dados em texto puro.",
+                        "HTTP é usado para baixar arquivos e HTTPS é usado para streaming.",
+                        "HTTP é o protocolo e HTTPS é um navegador seguro."
+                    ],
+                    answer: 1
+                },
+                {
+                    question: "O que o modo de 'Navegação Anônima' de um navegador NÃO faz?",
+                    options: [
+                        "Impede que o navegador salve o histórico de sites visitados.",
+                        "Impede que o provedor de internet (ISP) ou seu empregador vejam os sites que você acessa.",
+                        "Apaga os cookies e dados de sites ao fechar a janela.",
+                        "Não salva dados preenchidos em formulários no dispositivo local."
+                    ],
+                    answer: 1
+                },
+                {
+                    question: "Você recebe um e-mail do seu banco com o assunto '[URGENTE] Sua conta será bloqueada!' solicitando que você clique em um link para verificar seus dados. Qual é a ameaça mais provável?",
+                    options: [
+                        "Spam",
+                        "Ransomware",
+                        "Phishing",
+                        "Um aviso legítimo do banco."
+                    ],
+                    answer: 2
+                },
+                {
+                    question: "Qual pilar da segurança o Certificado Digital (usado no HTTPS) garante primariamente?",
+                    options: [
+                        "Confidencialidade (criptografia)",
+                        "Disponibilidade (acesso)",
+                        "Autenticidade (prova de quem é o servidor)",
+                        "Integridade (dados não alterados)"
+                    ],
+                    answer: 2
+                },
+                {
+                    question: "Qual das seguintes práticas é a MAIS RECOMENDADA ao usar uma rede Wi-Fi pública (ex: aeroporto)?",
+                    options: [
+                        "Acessar o banco rapidamente para diminuir o risco.",
+                        "Usar o modo de navegação anônima.",
+                        "Usar uma VPN (Virtual Private Network).",
+                        "Conectar-se apenas a sites que usam HTTP."
+                    ],
+                    answer: 2
+                }
+            ];
+
+            const quizIntro = document.getElementById('quiz-intro');
+            const quizContainer = document.getElementById('quiz-container');
+            const quizResults = document.getElementById('quiz-results');
+            const startBtn = document.getElementById('start-quiz-btn');
+            const restartBtn = document.getElementById('restart-quiz-btn');
+            const nextBtn = document.getElementById('next-quiz-btn');
+            
+            const questionEl = document.getElementById('quiz-question');
+            const optionsEl = document.getElementById('quiz-options');
+            const feedbackEl = document.getElementById('quiz-feedback');
+            const progressEl = document.getElementById('quiz-progress');
+            const scoreEl = document.getElementById('quiz-score');
+            const resultMessageEl = document.getElementById('quiz-result-message');
+
+            let currentQuestionIndex = 0;
+            let score = 0;
+            let answerSelected = false;
+
+            function selectAnswer(e) {
+                if (answerSelected) return;
+                answerSelected = true;
+
+                const selectedIndex = parseInt(e.target.dataset.index);
+                const correctIndex = quizQuestions[currentQuestionIndex].answer;
+
+                const optionsButtons = optionsEl.querySelectorAll('.quiz-option');
+
+                // Remove classes to prepare feedback
+                feedbackEl.classList.remove('feedback-correct', 'feedback-incorrect');
+
+                if (selectedIndex === correctIndex) {
+                    score++;
+                    e.target.classList.add('correct');
+                    feedbackEl.textContent = "Correto! " + (currentQuestionIndex === 3 ? "O Certificado Digital prova a identidade (autenticidade) do servidor, e o TLS usa isso para criar o túnel seguro (confidencialidade)." : "");
+                    feedbackEl.classList.add('feedback-correct');
+                } else {
+                    e.target.classList.add('incorrect');
+                    optionsButtons[correctIndex].classList.add('correct');
+                    feedbackEl.textContent = "Incorreto. A resposta correta era a destacada em verde claro.";
+                    feedbackEl.classList.add('feedback-incorrect');
+                }
+
+                feedbackEl.classList.remove('hidden');
+                nextBtn.classList.remove('hidden');
+            }
+
+            function loadQuestion() {
+                answerSelected = false;
+                feedbackEl.classList.add('hidden');
+                nextBtn.classList.add('hidden');
+                
+                const question = quizQuestions[currentQuestionIndex];
+                questionEl.textContent = question.question;
+                optionsEl.innerHTML = '';
+                progressEl.textContent = `Pergunta ${currentQuestionIndex + 1} de ${quizQuestions.length}`;
+
+                question.options.forEach((option, index) => {
+                    const button = document.createElement('button');
+                    button.textContent = option;
+                    button.classList.add('quiz-option');
+                    button.dataset.index = index;
+                    button.addEventListener('click', selectAnswer);
+                    optionsEl.appendChild(button);
+                });
+            }
+
+            function nextQuestion() {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < quizQuestions.length) {
+                    loadQuestion();
+                } else {
+                    showResults();
+                }
+            }
+
+            function showResults() {
+                quizContainer.classList.add('hidden');
+                quizResults.classList.remove('hidden');
+                scoreEl.textContent = `Você acertou ${score} de ${quizQuestions.length}.`;
+
+                if (score === quizQuestions.length) {
+                    resultMessageEl.textContent = "Excelente! Você está dominando o assunto.";
+                } else if (score >= quizQuestions.length * 0.7) {
+                    resultMessageEl.textContent = "Muito bom! Revise os pontos que errou.";
+                } else {
+                    resultMessageEl.textContent = "Continue estudando. Reveja os módulos e tente novamente.";
+                }
+            }
+
+            function startQuiz() {
+                quizIntro.classList.add('hidden');
+                quizResults.classList.add('hidden');
+                quizContainer.classList.remove('hidden');
+                currentQuestionIndex = 0;
+                score = 0;
+                answerSelected = false;
+                loadQuestion();
+            }
+
+            startBtn.addEventListener('click', startQuiz);
+            restartBtn.addEventListener('click', startQuiz);
+            nextBtn.addEventListener('click', nextQuestion);
+        });
+    </script>
+</body>
+</html>
