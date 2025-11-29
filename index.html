@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guia Interativo: Internet e E-mail</title>
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
-    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
@@ -511,9 +510,17 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 5rem;
+            /* AUMENTADO o gap de 1.5rem para 5rem para garantir a visibilidade dos botões */
+            gap: 5rem; 
             max-width: 40rem;
             margin: 0 auto;
+        }
+        
+        @media (max-width: 600px) {
+            .flashcard-container {
+                /* Ajuste para mobile para evitar scroll excessivo, mantendo a visibilidade */
+                gap: 3rem; 
+            }
         }
 
         /* Flip Card Magic */
@@ -540,7 +547,7 @@
 
         .flashcard-face {
             position: absolute;
-            width: 80%;
+            width: 100%;
             height: 100%;
             backface-visibility: hidden; /* Esconde a face quando ela está virada */
             display: flex;
@@ -555,6 +562,15 @@
             font-size: 1.25rem;
             font-weight: 600;
         }
+        
+        @media (max-width: 600px) {
+            .flashcard-face {
+                font-size: 1rem;
+                width: 80%;
+                height: 80%;
+            }
+        }
+
 
         .flashcard-front {
             background-color: #fff; /* Fundo branco para a pergunta */
@@ -890,7 +906,7 @@
                         
                         <h4 style="font-weight: 600; color: var(--color-primary-dark); margin-bottom: 0.5rem;">Como Identificar e Evitar:</h4>
                         <ul style="list-style: disc; list-style-position: inside; padding-left: 1.25rem;">
-                            <li><span style="font-weight: 600;">Passe o Mouse (Hover):</span> <span style="font-weight: 700;">Sempre</span> passe o mouse sobre um link (sem clicar!) antes de acessá-lo. O seu navegador (no canto inferior) ou cliente de e-mail mostrará o destino real da URL.</li>
+                            <li><span style="font-weight: 600;">Passe o Mouse (Hover):</span> <span style="font-weight: 700;">Sempre</span> passe o mouse sobre um link (sem clicar!) antes de acessá-lo. O seu navegador (no canto inferior) ou cliente de e-mail mostraria o destino real da URL.</li>
                             <li><span style="font-weight: 600;">Encurtadores de URL:</span> Tenha cuidado extra com links de encurtadores (como `bit.ly`, `t.co`). Embora muitos sejam legítimos, são usados por atacantes para esconder o destino final. Use serviços de "preview" de links se desconfiar.</li>
                             <li><span style="font-weight: 600;">Desconfie do Contexto:</span> Recebeu um link estranho de um amigo no WhatsApp? A conta dele pode ter sido invadida. Recebeu um "prêmio" ou uma "herança" por e-mail? É golpe.</li>
                             <li><span style="font-weight: 600;">Use Soluções de Segurança:</span> Antivírus modernos e extensões de navegador (como uBlock Origin) ajudam a bloquear sites maliciosos conhecidos.</li>
@@ -969,7 +985,7 @@
 
                 <div id="quiz-container" class="hidden">
                     <div class="quiz-header">
-                        <p id="quiz-progress">Pergunta 1 de 5</p>
+                        <p id="quiz-progress">Pergunta 1 de 50</p>
                         <h3 id="quiz-question">Carregando...</h3>
                     </div>
                     <div id="quiz-options" style="margin-top: 0.5rem;">
@@ -983,7 +999,7 @@
 
                 <div id="quiz-results" class="hidden" style="text-align: center;">
                     <h3 style="font-size: 1.25rem; font-weight: 600; color: var(--color-primary-dark); margin-bottom: 0.75rem;">Simulado Concluído!</h3>
-                    <p style="font-size: 1.125rem; margin-bottom: 1rem;" id="quiz-score">Você acertou 0 de 5.</p>
+                    <p style="font-size: 1.125rem; margin-bottom: 1rem;" id="quiz-score">Você acertou 0 de 50.</p>
                     <p style="margin-bottom: 1.5rem;" id="quiz-result-message">Continue estudando!</p>
                     <button id="restart-quiz-btn" class="quiz-restart-btn">
                         Tentar Novamente
@@ -1105,13 +1121,13 @@
                 setTimeout(createThreatsChart, 0); 
             });
 
-            // --- Quiz Logic (Existing) ---
+            // --- Quiz Logic (Expanded to 50 Questions) ---
             const quizQuestions = [
                 {
                     question: "Qual é a principal diferença entre HTTP e HTTPS?",
                     options: [
                         "HTTPS é mais rápido que HTTP.",
-                        "HTTPS usa a porta 443 e criptografa os dados com SSL/TLS, enquanto HTTP usa a porta 80 e envia dados em texto puro.",
+                        "HTTPS usa a porta 443 e criptografa os dados com SSL/TLS enquanto HTTP usa a porta 80 e envia dados em texto puro.",
                         "HTTP é usado para baixar arquivos e HTTPS é usado para streaming.",
                         "HTTP é o protocolo e HTTPS é um navegador seguro."
                     ],
@@ -1156,6 +1172,466 @@
                         "Conectar-se apenas a sites que usam HTTP."
                     ],
                     answer: 2
+                },
+                {
+                    question: "Qual pilar da segurança é assegurado pelo uso de funções de hashing (como SHA-256)?",
+                    options: [
+                        "Confidencialidade",
+                        "Disponibilidade",
+                        "Integridade",
+                        "Autenticidade"
+                    ],
+                    answer: 2
+                },
+                {
+                    question: "Qual é a sigla para o Sistema de Gestão de Segurança da Informação (SGSI) reconhecido internacionalmente no material de apoio?",
+                    options: [
+                        "ISO 9001",
+                        "NBR ISO/IEC 27001",
+                        "ITIL v4",
+                        "COBIT 2019"
+                    ],
+                    answer: 1
+                },
+                {
+                    question: "Qual protocolo de segurança é o sucessor direto do SSL e é fundamental para a segurança no HTTPS?",
+                    options: [
+                        "TCP",
+                        "TLS",
+                        "FTP",
+                        "SSH"
+                    ],
+                    answer: 1
+                },
+                {
+                    question: "Qual atributo de segurança de cookie impede que scripts do lado do cliente (JavaScript) acessem o valor do cookie, mitigando XSS?",
+                    options: [
+                        "Secure",
+                        "Expires",
+                        "SameSite",
+                        "HttpOnly"
+                    ],
+                    answer: 3
+                },
+                {
+                    question: "Qual protocolo de autenticação de e-mail permite ao proprietário do domínio definir quais endereços IP estão autorizados a enviar e-mails em seu nome?",
+                    options: [
+                        "DKIM",
+                        "DMARC",
+                        "SPF",
+                        "PGP"
+                    ],
+                    answer: 2
+                },
+                {
+                    question: "Qual protocolo de e-mail adiciona uma assinatura digital criptográfica ao cabeçalho da mensagem para verificar que o conteúdo não foi adulterado?",
+                    options: [
+                        "SPF",
+                        "DKIM",
+                        "S/MIME",
+                        "POP3"
+                    ],
+                    answer: 1
+                },
+                {
+                    question: "Qual política utiliza os resultados de SPF e DKIM para decidir a ação a ser tomada (ex: quarentena ou rejeição) em caso de falha de autenticação?",
+                    options: [
+                        "DMARC",
+                        "TLS",
+                        "SOP",
+                        "CSP"
+                    ],
+                    answer: 0
+                },
+                {
+                    question: "Qual é o nível de enforcement ideal para DMARC em que o e-mail não autenticado é totalmente bloqueado?",
+                    options: [
+                        "p=none",
+                        "p=quarantine",
+                        "p=monitor",
+                        "p=reject"
+                    ],
+                    answer: 3
+                },
+                {
+                    question: "Qual tipo de validação de Certificado Digital exige o processo mais rigoroso, verificando a organização e exigindo nove pontos de controle?",
+                    options: [
+                        "DV (Domain Validated)",
+                        "OV (Organization Validated)",
+                        "EV (Extended Validation)",
+                        "Self-Signed"
+                    ],
+                    answer: 2
+                },
+                {
+                    question: "A vulnerabilidade grave Heartbleed de 2014, que permitia a leitura da memória do servidor, afetou qual biblioteca criptográfica amplamente utilizada?",
+                    options: [
+                        "LibreSSL",
+                        "OpenSSL",
+                        "BoringSSL",
+                        "GnuTLS"
+                    ],
+                    answer: 1
+                },
+                {
+                    question: "Qual princípio de segurança web restringe como um script de uma origem pode interagir com um recurso de outra origem, sendo um mecanismo de defesa contra ataques?",
+                    options: [
+                        "Forward Secrecy (FS)",
+                        "Same-Origin Policy (SOP)",
+                        "Content Delivery Network (CDN)",
+                        "Transport Layer Security (TLS)"
+                    ],
+                    answer: 1
+                },
+                {
+                    question: "Qual ataque utiliza iframes ocultos ou camadas transparentes para enganar o usuário a clicar em um elemento malicioso que não pretendia?",
+                    options: [
+                        "Cross-Site Scripting (XSS)",
+                        "Clickjacking",
+                        "Cross-Site Request Forgery (CSRF)",
+                        "Whaling"
+                    ],
+                    answer: 1
+                },
+                {
+                    question: "Qual cabeçalho de resposta HTTP é considerado a defesa primária de última geração contra o Cross-Site Scripting (XSS)?",
+                    options: [
+                        "Strict-Transport-Security",
+                        "X-Frame-Options",
+                        "Content Security Policy (CSP)",
+                        "Access-Control-Allow-Origin"
+                    ],
+                    answer: 2
+                },
+                {
+                    question: "Qual vulnerabilidade é mitigada pelo uso de tokens anti-CSRF e pelo atributo de cookie `SameSite=Strict`?",
+                    options: [
+                        "Cross-Site Request Forgery (CSRF)",
+                        "Insecure Direct Object Reference (IDOR)",
+                        "SQL Injection",
+                        "Phishing"
+                    ],
+                    answer: 0
+                },
+                {
+                    question: "Qual vulnerabilidade permite que um atacante referencie diretamente um objeto (como o ID de outro usuário) para o qual não deveria ter permissão de acesso?",
+                    options: [
+                        "Clickjacking",
+                        "Cross-Site Scripting (XSS)",
+                        "Insecure Direct Object Reference (IDOR)",
+                        "Denial of Service (DoS)"
+                    ],
+                    answer: 2
+                },
+                {
+                    question: "Qual protocolo de criptografia de e-mail utiliza a infraestrutura de Autoridades Certificadoras (CAs) e é mais comum em ambientes corporativos?",
+                    options: [
+                        "PGP",
+                        "DKIM",
+                        "S/MIME",
+                        "SPF"
+                    ],
+                    answer: 2
+                },
+                {
+                    question: "Qual é o protocolo de criptografia de e-mail que usa o modelo de 'Web of Trust' (Teia de Confiança) em vez de CAs centrais?",
+                    options: [
+                        "PGP",
+                        "S/MIME",
+                        "TLS",
+                        "HTTPS"
+                    ],
+                    answer: 0
+                },
+                {
+                    question: "O uso de chaves de sessão efêmeras, geradas e descartadas a cada sessão TLS, garante qual princípio de segurança?",
+                    options: [
+                        "Autenticidade (Authenticity)",
+                        "Disponibilidade (Availability)",
+                        "Integridade (Integrity)",
+                        "Sigilo de Encaminhamento (Forward Secrecy - FS)"
+                    ],
+                    answer: 3
+                },
+                {
+                    question: "No TLS 1.3, qual protocolo de troca de chaves é central para garantir o Forward Secrecy?",
+                    options: [
+                        "RSA",
+                        "Diffie-Hellman",
+                        "AES-256",
+                        "MD5"
+                    ],
+                    answer: 1
+                },
+                {
+                    question: "Qual é a porta TCP utilizada para o protocolo IMAPS (IMAP seguro)?",
+                    options: [
+                        "Porta 25",
+                        "Porta 110",
+                        "Porta 995",
+                        "Porta 993"
+                    ],
+                    answer: 3
+                },
+                {
+                    question: "Qual é a porta TCP utilizada para o protocolo POP3S (POP3 seguro)?",
+                    options: [
+                        "Porta 143",
+                        "Porta 993",
+                        "Porta 995",
+                        "Porta 587"
+                    ],
+                    answer: 2
+                },
+                {
+                    question: "Qual é a porta TCP comumente usada para envio de e-mails de clientes (MUA) para servidores (MTA) de forma segura (Submission over TLS)?",
+                    options: [
+                        "Porta 25",
+                        "Porta 587",
+                        "Porta 110",
+                        "Porta 443"
+                    ],
+                    answer: 1
+                },
+                {
+                    question: "Qual tipo de phishing é direcionado a um indivíduo específico, usando dados como nome, cargo ou contexto interno para torná-lo mais convincente?",
+                    options: [
+                        "Phishing Genérico",
+                        "Spear Phishing",
+                        "Whaling",
+                        "Smishing"
+                    ],
+                    answer: 1
+                },
+                {
+                    question: "Qual tipo de phishing é focado em alvos de alto valor ou executivos, como CEOs e CFOs?",
+                    options: [
+                        "Pharming",
+                        "Spear Phishing",
+                        "Whaling",
+                        "Vishing"
+                    ],
+                    answer: 2
+                },
+                {
+                    question: "Qual é a tática de Engenharia Social mais comum utilizada em ataques de Phishing para induzir a vítima a agir rapidamente sem pensar?",
+                    options: [
+                        "Oferecer um prêmio ou ganho financeiro.",
+                        "Garantir anonimato na web.",
+                        "Criar um senso de urgência, medo ou ameaça (ex: 'conta bloqueada').",
+                        "Apresentar informações técnicas detalhadas."
+                    ],
+                    answer: 2
+                },
+                {
+                    question: "O que a técnica de filtragem de Spam chamada Graylisting faz?",
+                    options: [
+                        "Rejeita permanentemente e-mails que falham na validação SPF.",
+                        "Bloqueia temporariamente o remetente, esperando uma nova tentativa (delay).",
+                        "Analisa o conteúdo do e-mail por palavras-chave maliciosas.",
+                        "Move o e-mail para a quarentena DMARC."
+                    ],
+                    answer: 1
+                },
+                {
+                    question: "Qual é o risco de clicar no link 'Cancelar Inscrição' em um e-mail de spam desconhecido e não solicitado?",
+                    options: [
+                        "O remetente é permanentemente bloqueado.",
+                        "O e-mail confirma que seu endereço é válido e ativo, atraindo mais spam.",
+                        "Inicia o download de um anexo seguro.",
+                        "Automaticamente reporta o e-mail ao seu provedor."
+                    ],
+                    answer: 1
+                },
+                {
+                    question: "Qual ataque é mitigado primariamente pelo atributo de cookie `SameSite=Strict`?",
+                    options: [
+                        "Cross-Site Scripting (XSS)",
+                        "Cross-Site Request Forgery (CSRF)",
+                        "Man-in-the-Middle (MITM)",
+                        "Buffer Overflow"
+                    ],
+                    answer: 1
+                },
+                {
+                    question: "Qual é o principal objetivo de um ataque de Ransomware?",
+                    options: [
+                        "Roubar senhas de e-mail e vender no mercado negro.",
+                        "Sequestrar dados e sistemas, exigindo pagamento de resgate para liberá-los.",
+                        "Injetar código malicioso em sites legítimos.",
+                        "Redirecionar o tráfego de navegação para sites falsos."
+                    ],
+                    answer: 1
+                },
+                {
+                    question: "O que um Certificado DV (Domain Validated) atesta?",
+                    options: [
+                        "A identidade legal e operacional completa da organização.",
+                        "Apenas a posse/controle do domínio web pelo solicitante.",
+                        "Que o site está em conformidade com a ISO/IEC 27001.",
+                        "A ausência de vulnerabilidades XSS no site."
+                    ],
+                    answer: 1
+                },
+                {
+                    question: "Qual é o risco de acessar informações sensíveis em uma rede Wi-Fi pública SEM usar uma VPN?",
+                    options: [
+                        "Seu provedor de internet (ISP) irá rastrear seu histórico.",
+                        "O Certificado Digital do site será inválido.",
+                        "Vulnerabilidade à intercepção por ataques Man-in-the-Middle locais.",
+                        "O modo de navegação anônima será desativado."
+                    ],
+                    answer: 2
+                },
+                {
+                    question: "Qual vulnerabilidade o Content Security Policy (CSP) busca impedir ao restringir a execução de código embutido ou de fontes não confiáveis?",
+                    options: [
+                        "IDOR",
+                        "CSRF",
+                        "XSS",
+                        "Pharming"
+                    ],
+                    answer: 2
+                },
+                {
+                    question: "Qual dos três pilares da CID está relacionado à resiliência de serviços, redundância e planos de recuperação de desastres?",
+                    options: [
+                        "Confidencialidade",
+                        "Integridade",
+                        "Disponibilidade",
+                        "Autenticidade"
+                    ],
+                    answer: 2
+                },
+                {
+                    question: "Qual é a função da Assinatura Digital no contexto de e-mail seguro (S/MIME ou PGP)?",
+                    options: [
+                        "Criptografar o corpo da mensagem (Confidencialidade).",
+                        "Garantir a confidencialidade e integridade do remetente.",
+                        "Garantir a autenticidade (não-repúdio) e integridade do remetente e do conteúdo.",
+                        "Bloquear anexos com vírus."
+                    ],
+                    answer: 2
+                },
+                {
+                    question: "Se o resultado de um e-mail no DMARC for 'fail', qual política de enforcement (p=...) garante que o e-mail será totalmente bloqueado e não entregue?",
+                    options: [
+                        "p=none",
+                        "p=quarantine",
+                        "p=reject",
+                        "p=monitor"
+                    ],
+                    answer: 2
+                },
+                {
+                    question: "Qual dos protocolos é o responsável direto pela criptografia no HTTPS?",
+                    options: [
+                        "HTTP",
+                        "TCP",
+                        "TLS",
+                        "IP"
+                    ],
+                    answer: 2
+                },
+                {
+                    question: "Qual é a melhor prática de segurança ao receber um e-mail com um link suspeito de login de um serviço conhecido (ex: banco)?",
+                    options: [
+                        "Clicar no link e inserir uma senha falsa.",
+                        "Clicar no link para verificar se o HTTPS está ativo.",
+                        "Acessar o site digitando a URL diretamente no navegador.",
+                        "Responder ao e-mail pedindo confirmação."
+                    ],
+                    answer: 2
+                },
+                {
+                    question: "O que o termo 'Smishing' se refere?",
+                    options: [
+                        "Phishing realizado via chamadas de voz.",
+                        "Phishing realizado via mensagens instantâneas (ex: WhatsApp).",
+                        "Phishing realizado via SMS (Short Message Service).",
+                        "Ataque de Phishing que usa engenharia social complexa."
+                    ],
+                    answer: 2
+                },
+                {
+                    question: "Qual dos seguintes é um fator de autenticação de 'posse' em uma Autenticação de Múltiplos Fatores (MFA)?",
+                    options: [
+                        "Sua senha (Fator de Conhecimento)",
+                        "Sua impressão digital (Fator de Inherência)",
+                        "Um código enviado para seu celular/token (Fator de Posse)",
+                        "Seu nome completo"
+                    ],
+                    answer: 2
+                },
+                {
+                    question: "Qual é o protocolo mais moderno e seguro da família TLS, que padroniza o Forward Secrecy por padrão?",
+                    options: [
+                        "TLS 1.0",
+                        "TLS 1.1",
+                        "TLS 1.2",
+                        "TLS 1.3"
+                    ],
+                    answer: 3
+                },
+                {
+                    question: "Qual informação sobre sua atividade online PODE ser vista pelo seu ISP (Provedor de Internet) mesmo se você usar o modo de navegação anônima?",
+                    options: [
+                        "Seu histórico de navegação local.",
+                        "Seus cookies de sessão.",
+                        "Seu endereço IP de origem e os destinos dos sites (IPs/Domínios).",
+                        "Dados preenchidos em formulários."
+                    ],
+                    answer: 2
+                },
+                {
+                    question: "O que é o conceito de 'Web of Trust' (Teia de Confiança) associado ao PGP?",
+                    options: [
+                        "Um sistema centralizado de CAs controladas por grandes empresas.",
+                        "A confiança é baseada na verificação e assinatura da chave por outros usuários.",
+                        "Um sistema que usa DNS para validar chaves públicas.",
+                        "Um protocolo de e-mail que usa certificados EV."
+                    ],
+                    answer: 1
+                },
+                {
+                    question: "Qual é a função de uma DNS Blacklist (DNSBL) no filtro de e-mail?",
+                    options: [
+                        "Listar domínios com certificado SSL inválido.",
+                        "Bloquear e-mails de endereços IP conhecidos por enviar spam.",
+                        "Forçar a criptografia TLS para todos os e-mails.",
+                        "Implementar a política DMARC p=reject."
+                    ],
+                    answer: 1
+                },
+                {
+                    question: "Qual dos pilares da CID impede que usuários não autorizados leiam informações confidenciais?",
+                    options: [
+                        "Integridade",
+                        "Autenticidade",
+                        "Disponibilidade",
+                        "Confidencialidade"
+                    ],
+                    answer: 3
+                },
+                {
+                    question: "O que um token anti-CSRF é projetado para impedir?",
+                    options: [
+                        "Que a senha do usuário seja salva em texto plano.",
+                        "Que o navegador faça requisições automáticas não intencionais e não autorizadas.",
+                        "A execução de código JavaScript malicioso no lado do cliente.",
+                        "A interceptação de dados em redes Wi-Fi públicas."
+                    ],
+                    answer: 1
+                },
+                {
+                    question: "Qual atributo de segurança de cookie, ao ser definido como 'Strict', oferece a máxima proteção contra CSRF?",
+                    options: [
+                        "HttpOnly",
+                        "Secure",
+                        "Max-Age",
+                        "SameSite"
+                    ],
+                    answer: 3
                 }
             ];
 
@@ -1192,7 +1668,7 @@
                 if (selectedIndex === correctIndex) {
                     score++;
                     e.target.classList.add('correct');
-                    feedbackEl.textContent = "Correto! " + (currentQuestionIndex === 3 ? "O Certificado Digital prova a identidade (autenticidade) do servidor, e o TLS usa isso para criar o túnel seguro (confidencialidade)." : "");
+                    feedbackEl.textContent = "Correto!";
                     feedbackEl.classList.add('feedback-correct');
                 } else {
                     e.target.classList.add('incorrect');
@@ -1255,6 +1731,8 @@
                 currentQuestionIndex = 0;
                 score = 0;
                 answerSelected = false;
+                // Embaralha as perguntas no início do Simulado
+                shuffle(quizQuestions); 
                 loadQuestion();
             }
 
@@ -1263,7 +1741,7 @@
             nextQuizBtn.addEventListener('click', nextQuestion);
 
 
-            // --- Flashcard Logic (New) ---
+            // --- Flashcard Logic (Existing) ---
             
             let flashcardsData = [
                 { q: "O que são os três pilares clássicos da segurança da informação (CID)?", a: "Confidencialidade, Integridade e Disponibilidade." },
@@ -1330,7 +1808,7 @@
             const flipBtn = document.getElementById('flip-btn');
             const shuffleBtn = document.getElementById('shuffle-btn');
 
-            // Fisher-Yates (Knuth) Shuffle Algorithm para embaralhar os cards
+            // Fisher-Yates (Knuth) Shuffle Algorithm para embaralhar os cards e as perguntas do quiz
             function shuffle(array) {
                 let currentIndex = array.length, randomIndex;
 
